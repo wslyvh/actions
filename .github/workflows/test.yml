@@ -31,8 +31,8 @@ jobs:
         working-directory: ./tools
         run: yarn files
 
+      - uses: actions/checkout@v2
       - name: Commit files
-        uses: actions/checkout@v2
         env:
           SRC_FOLDER_PATH: 'data'
           TARGET_BRANCH: 'push'
