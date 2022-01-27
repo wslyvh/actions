@@ -14,10 +14,9 @@ const main = async () => {
     console.log('  -', i.name)
   })
 
-  const fileName = new Date().getTime().toString()
-  const file = join(__dirname, '../../data', fileName) + '.txt'
+  const file = join(__dirname, '../../data', data) + '.txt'
   console.log('Creating file', file)
-  fs.writeFileSync(file, fileName)
+  fs.writeFileSync(file, new Date().getTime().toString())
 
   // read data again
   console.log('Files in', data)
