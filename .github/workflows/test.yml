@@ -26,8 +26,17 @@ jobs:
         run: yarn files
 
       - name: Commit files
-        with:
-          ref: push
+        env:
+          SRC_FOLDER_PATH: 'data'
+          SOURCE_BRANCH: 'push'
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git checkout $SOURCE_BRANCH                     # checkout the source branch (same as checkout ref in step 1)
+          git add --all
+          git commit -m "Automated commit" -a
+
+      - name: Merge files
         env:
           SRC_FOLDER_PATH: 'data'
           TARGET_BRANCH: 'main'
@@ -35,8 +44,6 @@ jobs:
           files=$(find $SRC_FOLDER_PATH -type f)          # get the file list
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
-          git add --all
-          git commit -m "Automated commit" -a
           git fetch                                       # fetch branches
           git checkout $TARGET_BRANCH                     # checkout to your branch
           git checkout ${GITHUB_REF##*/} -- $files        # copy files from the source branch
