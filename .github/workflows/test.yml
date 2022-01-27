@@ -23,27 +23,27 @@ jobs:
         working-directory: ./tools
         run: yarn files
 
-      - name: Commit files
-        env:
-          TARGET_BRANCH: 'push'
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "github-actions"
-          git add --all
-          git commit -m "Automated run" -a
-          git push -u origin $TARGET_BRANCH 
-
       # - name: Commit files
       #   env:
-      #     SRC_FOLDER_PATH: 'data'
-      #     TARGET_BRANCH: 'main'
+      #     TARGET_BRANCH: 'push'
       #   run: |
-      #     files=$(find $SRC_FOLDER_PATH -type f)          # get the file list
-      #     git config --global user.name 'GitHub Action'
-      #     git config --global user.email 'action@github.com'
-      #     git fetch                                       # fetch branches
-      #     git checkout $TARGET_BRANCH                     # checkout to your branch
-      #     git checkout ${GITHUB_REF##*/} -- $files        # copy files from the source branch
-      #     git add -A
-      #     git diff-index --quiet HEAD ||  git commit -am "deploy files"  # commit to the repository (ignore if no modification)
-      #     git push origin $TARGET_BRANCH                  # push to remote branch
+      #     git config --local user.email "action@github.com"
+      #     git config --local user.name "github-actions"
+      #     git add --all
+      #     git commit -m "Automated run" -a
+      #     git push -u origin $TARGET_BRANCH 
+
+      - name: Commit files
+        env:
+          SRC_FOLDER_PATH: 'data'
+          TARGET_BRANCH: 'main'
+        run: |
+          files=$(find $SRC_FOLDER_PATH -type f)          # get the file list
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git fetch                                       # fetch branches
+          git checkout $TARGET_BRANCH                     # checkout to your branch
+          git checkout ${GITHUB_REF##*/} -- $files        # copy files from the source branch
+          git add -A
+          git diff-index --quiet HEAD ||  git commit -am "deploy files"  # commit to the repository (ignore if no modification)
+          git push origin $TARGET_BRANCH                  # push to remote branch
