@@ -36,7 +36,7 @@ jobs:
       - name: Commit files
         env:
           SRC_FOLDER_PATH: 'data'
-          TARGET_BRANCH: 'main'
+          TARGET_BRANCH: 'push'
         run: |
           files=$(find $SRC_FOLDER_PATH -type f)          # get the file list
           git config --global user.name 'GitHub Action'
