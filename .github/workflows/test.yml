@@ -7,16 +7,10 @@ jobs:
     name: Test runner
     runs-on: ubuntu-latest
     steps:
-      - name: Branch name
-        run: echo running on branch ${GITHUB_REF##*/}
-
       - name: Checkout Repo
         uses: actions/checkout@v2
         with:
           ref: push
-
-      - name: Branch name
-        run: echo running on branch ${GITHUB_REF##*/}
 
       - name: Use Node.js
         uses: actions/setup-node@v1
@@ -34,16 +28,29 @@ jobs:
       - name: Commit files
         env:
           SRC_FOLDER_PATH: 'data'
-          TARGET_BRANCH: 'main'
+          SOURCE_BRANCH: 'push'
         run: |
           files=$(find $SRC_FOLDER_PATH -type f)          # get the file list
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
+          git checkout $SOURCE_BRANCH                     # checkout to your branch
           git add --all
           git commit -m "Automated commit" -a
-          git fetch                                       # fetch branches
-          git checkout $TARGET_BRANCH                     # checkout to your branch
-          git checkout ${GITHUB_REF##*/} -- $files        # copy files from the source branch
-          git add -A
-          git diff-index --quiet HEAD ||  git commit -am "Automated merge"  # commit to the repository (ignore if no modification)
-          git push origin $TARGET_BRANCH                  # push to remote branch
+          git push origin $SOURCE_BRANCH                  # push to remote branch
+
+      # - name: Commit files
+      #   env:
+      #     SRC_FOLDER_PATH: 'data'
+      #     TARGET_BRANCH: 'main'
+      #   run: |
+      #     files=$(find $SRC_FOLDER_PATH -type f)          # get the file list
+      #     git config --global user.name 'GitHub Action'
+      #     git config --global user.email 'action@github.com'
+      #     git add --all
+      #     git commit -m "Automated commit" -a
+      #     git fetch                                       # fetch branches
+      #     git checkout $TARGET_BRANCH                     # checkout to your branch
+      #     git checkout ${GITHUB_REF##*/} -- $files        # copy files from the source branch
+      #     git add -A
+      #     git diff-index --quiet HEAD ||  git commit -am "Automated merge"  # commit to the repository (ignore if no modification)
+      #     git push origin $TARGET_BRANCH                  # push to remote branch
