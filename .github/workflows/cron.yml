@@ -1,4 +1,4 @@
-name: Test runner
+name: Cron
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Test runner
+    name: Cron
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
