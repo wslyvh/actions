@@ -24,12 +24,14 @@ jobs:
         run: yarn files
 
       - name: Commit files
+        env:
+          TARGET_BRANCH: 'main'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions"
           git add --all
-          git commit -m "Add changes" -a
-          git push -u origin $GITHUB_REF 
+          git commit -m "Automated run" -a
+          git push -u origin $TARGET_BRANCH 
 
       # - name: Commit files
       #   env:
