@@ -25,7 +25,7 @@ jobs:
 
       - name: Commit files
         env:
-          TARGET_BRANCH: 'main'
+          TARGET_BRANCH: 'push'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions"
