@@ -13,6 +13,17 @@ const main = async () => {
   fs.readdirSync(data, { withFileTypes: true }).forEach(i => {
     console.log('  -', i.name)
   })
+
+  const fileName = new Date().getTime().toString()
+  const file = join(__dirname, '../../data', fileName) + '.txt'
+  console.log('Creating file', file)
+  fs.writeFileSync(file, fileName)
+
+  // read data again
+  console.log('Files in', data)
+  fs.readdirSync(data, { withFileTypes: true }).forEach(i => {
+    console.log('  -', i.name)
+  })
 }
 
 main()
