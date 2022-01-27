@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
+        with:
+          ref: push
 
       - name: Use Node.js
         uses: actions/setup-node@v1
@@ -26,7 +28,7 @@ jobs:
       - name: Commit files
         env:
           SRC_FOLDER_PATH: 'data'
-          TARGET_BRANCH: 'push'
+          TARGET_BRANCH: 'main'
         run: |
           files=$(find $SRC_FOLDER_PATH -type f)          # get the file list
           git config --global user.name 'GitHub Action'
