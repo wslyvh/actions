@@ -26,6 +26,8 @@ jobs:
         run: yarn files
 
       - name: Commit files
+        with:
+          ref: push
         env:
           SRC_FOLDER_PATH: 'data'
           TARGET_BRANCH: 'main'
